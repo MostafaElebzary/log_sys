@@ -2,9 +2,11 @@
 
 namespace App\Nova;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
@@ -59,6 +61,9 @@ class Log extends Resource
                 ->asHtml()->onlyOnIndex(),
 
             Image::make('image', 'image'),
+            Text::make('created at','created_at')->displayUsing(function ($date){
+                return Carbon::parse($date)->translatedFormat("Y l d M");
+            })->onlyOnIndex()
         ];
     }
 
