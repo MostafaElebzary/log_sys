@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Acme\DateRange\DateRange;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -62,8 +63,8 @@ class Log extends Resource
 
             Image::make('image', 'image'),
             Text::make('created at','created_at')->displayUsing(function ($date){
-                return Carbon::parse($date)->translatedFormat("Y l d M");
-            })->onlyOnIndex()
+                return Carbon::parse($date)->translatedFormat("a h:i Y-m-d");
+            })->onlyOnIndex()->sortable(),
         ];
     }
 
@@ -86,7 +87,9 @@ class Log extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+
+        ];
     }
 
     /**

@@ -13,4 +13,8 @@ class Category extends Model
         return $this->hasMany(Log::class,'category_id');
     }
 
+    public function tasks(){
+        return $this->hasMany(Task::class,'category_id');
+    }
+
 }
