@@ -55,15 +55,15 @@ class Task extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Status::make('Status', 'status')
                 ->loadingWhen(['in_progress'])
-                ->failedWhen(['not_started']),
+                ->failedWhen(['not_started'])->sortable(),
             BelongsTo::make('Category', 'Category', Category::class)->rules('required'),
             BelongsTo::make('User', 'User', User::class)->rules('required'),
             Trix::make('task', 'task')->rules('required'),
             Text::make('task', 'task')
                 ->asHtml()->onlyOnIndex(),
             Trix::make('note', 'note')->rules('required'),
-            Date::make('start_date')->rules('required'),
-            Date::make('end_date')->rules('required'),
+            Date::make('start_date')->sortable()->rules('required'),
+            Date::make('end_date')->sortable()->rules('required'),
             Image::make('image', 'image'),
             Select::make('Status','status')->options([
                 'not_started' => 'not started',
