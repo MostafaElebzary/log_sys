@@ -23,11 +23,11 @@ class CreateTasksTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->string('task');
+            $table->longText('task');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('image')->nullable();
-            $table->string('note')->nullable();
+            $table->longText('note')->nullable();
             $table->enum('status', ['not_started', 'in_progress', 'done'])->default('not_started');
 
             $table->timestamps();

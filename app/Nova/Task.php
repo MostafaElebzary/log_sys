@@ -28,7 +28,7 @@ class Task extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'task';
 
     /**
      * The columns that should be searched.
@@ -53,6 +53,9 @@ class Task extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Status::make('Status', 'status')
+                ->loadingWhen(['in_progress'])
+                ->failedWhen(['not_started']),
             BelongsTo::make('Category', 'Category', Category::class)->rules('required'),
             BelongsTo::make('User', 'User', User::class)->rules('required'),
             Trix::make('task', 'task')->rules('required'),
@@ -67,9 +70,7 @@ class Task extends Resource
                 'in_progress' => 'in progress',
                 'done' => 'Finished',
             ])->hideFromIndex(),
-            Status::make('Status', 'status')
-                ->loadingWhen(['in_progress'])
-                ->failedWhen(['not_started'])
+
         ];
     }
 
